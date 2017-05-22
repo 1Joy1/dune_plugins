@@ -1,0 +1,13 @@
+live = Live
+tv_fav = Favorites
+yes = Yes
+no = No
+add_favorite = Add/Del Favorite
+setup = Setup
+info_view = Information about changes
+save_bg_path = Changes will take effect after a reboot!
+qual_live = Quality live.
+qual_arhiv = Quality arhiv.
+q_arh_ch_mess = If this quality is not found, the plug-in will pick up the maximum possible.
+q_live_ch_mess = Changed.
+pagi = Depth of video archive.

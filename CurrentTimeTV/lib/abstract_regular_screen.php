@@ -1,5 +1,5 @@
-<?php
-///////////////////////////////////////////////////////////////////////////
+﻿<?php
+
 
 require_once 'lib/regular_screen.php';
 
@@ -10,7 +10,7 @@ abstract class AbstractRegularScreen implements RegularScreen
     private $folder_views;
     private $folder_view_index_attr_name;
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     protected function __construct($id, $folder_views)
     {
@@ -20,7 +20,7 @@ abstract class AbstractRegularScreen implements RegularScreen
         $this->set_default_folder_view_index_attr_name();
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     protected function set_folder_view_index_attr_name($s)
     {
@@ -32,12 +32,12 @@ abstract class AbstractRegularScreen implements RegularScreen
         $this->folder_view_index_attr_name = "screen." . $this->id . ".view_idx";
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_id()
     { return $this->id; }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_folder_view(MediaURL $media_url, &$plugin_cookies)
     {
@@ -68,7 +68,7 @@ abstract class AbstractRegularScreen implements RegularScreen
         );
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_next_folder_view(MediaURL $media_url, &$plugin_cookies)
     {
@@ -84,7 +84,7 @@ abstract class AbstractRegularScreen implements RegularScreen
         return $this->get_folder_view($media_url, $plugin_cookies);
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     private function get_folder_view_index(&$plugin_cookies)
     {
@@ -103,11 +103,11 @@ abstract class AbstractRegularScreen implements RegularScreen
         return intval($idx);
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_archive(MediaURL $media_url)
     { return null; }
 }
 
-///////////////////////////////////////////////////////////////////////////
+
 ?>

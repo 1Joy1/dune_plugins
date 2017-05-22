@@ -1,23 +1,23 @@
-<?php
-///////////////////////////////////////////////////////////////////////////
+﻿<?php
+
 
 require_once 'lib/action_factory.php';
 require_once 'lib/dune_exception.php';
 
-///////////////////////////////////////////////////////////////////////////
+
 
 class DefaultDunePluginFw extends DunePluginFw
 {
     public static $plugin_class_name = null;
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function create_plugin()
     {
         return new DefaultDunePluginFw::$plugin_class_name;
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function call_plugin($call_ctx_json)
     {
@@ -31,7 +31,7 @@ class DefaultDunePluginFw extends DunePluginFw
                     json_decode($call_ctx_json)));
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     protected function call_plugin_impl($call_ctx)
     {
@@ -129,9 +129,9 @@ class DefaultDunePluginFw extends DunePluginFw
     }
 }
 
-///////////////////////////////////////////////////////////////////////////
+
 
 DunePluginFw::$instance = new DefaultDunePluginFw();
 
-///////////////////////////////////////////////////////////////////////////
+
 ?>

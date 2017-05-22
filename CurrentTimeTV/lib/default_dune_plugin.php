@@ -1,5 +1,5 @@
-<?php
-///////////////////////////////////////////////////////////////////////////
+﻿<?php
+
 
 require_once 'lib/media_url.php';
 require_once 'lib/tv/epg_iterator.php';
@@ -15,18 +15,18 @@ class DefaultDunePlugin implements DunePlugin
     protected $tv;
     protected $vod;
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     protected function __construct()
     {
         $this->screens = array();
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
     //
     // Screen support.
     //
-    ///////////////////////////////////////////////////////////////////////
+    
 
     protected function add_screen($scr)
     {
@@ -39,7 +39,7 @@ class DefaultDunePlugin implements DunePlugin
         $this->screens[$scr->get_id()] = $scr;
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     protected function get_screen_by_id($screen_id)
     {
@@ -50,7 +50,7 @@ class DefaultDunePlugin implements DunePlugin
         throw new Exception('Screen not found');
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    
 
     protected function get_screen_by_url($media_url)
     {
@@ -62,11 +62,11 @@ class DefaultDunePlugin implements DunePlugin
         return $this->get_screen_by_id($screen_id);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    
     //
     // Folder support.
     //
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_folder_view($media_url_str, &$plugin_cookies)
     {
@@ -78,7 +78,7 @@ class DefaultDunePlugin implements DunePlugin
                     get_folder_view($media_url, $plugin_cookies);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    
 
     public function get_next_folder_view($media_url_str, &$plugin_cookies)
     {
@@ -90,7 +90,7 @@ class DefaultDunePlugin implements DunePlugin
                     get_next_folder_view($media_url, $plugin_cookies);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    
 
     public function get_regular_folder_items($media_url_str, $from_ndx,
         &$plugin_cookies)
@@ -101,11 +101,11 @@ class DefaultDunePlugin implements DunePlugin
             get_folder_range($media_url, $from_ndx, $plugin_cookies);
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
     //
     // IPTV channels support (TV support).
     //
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_tv_info($media_url_str, &$plugin_cookies)
     {
@@ -117,27 +117,35 @@ class DefaultDunePlugin implements DunePlugin
         return $this->tv->get_tv_info($media_url, $plugin_cookies);
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_tv_stream_url($playback_url, &$plugin_cookies)
     { 
+        // hd_print('DefaultDunePlugin::get_tv_stream_url...');
+        // hd_print( '  playback_url: ' . $playback_url );
+        
         if (is_null($this->tv))
             throw new Exception('TV is not supported');
 
         return $this->tv->get_tv_stream_url($playback_url, $plugin_cookies);
     }
     
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_tv_playback_url($channel_id, $archive_ts, $protect_code, &$plugin_cookies)
     {
+        // hd_print('DefaultDunePlugin::get_tv_playback_url...');
+        // hd_print('  channel_id: ' . $channel_id);
+        
         if (is_null($this->tv))
             throw new Exception('TV is not supported');
-
-        return $this-> tv->get_tv_playback_url($channel_id, $archive_ts, $protect_code, $plugin_cookies);
+        
+        $playback_url = $this->tv->get_tv_playback_url($channel_id, $archive_ts, $protect_code, $plugin_cookies);
+        // hd_print('playback URL: ' . $playback_url);
+        return $playback_url;
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_day_epg($channel_id, $day_start_ts, &$plugin_cookies)
     {
@@ -147,7 +155,7 @@ class DefaultDunePlugin implements DunePlugin
         return $this->tv->get_day_epg($channel_id, $day_start_ts, $plugin_cookies);
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function change_tv_favorites($fav_op_type, $channel_id, &$plugin_cookies)
     {
@@ -157,11 +165,11 @@ class DefaultDunePlugin implements DunePlugin
         return $this->tv->change_tv_favorites($fav_op_type, $channel_id, $plugin_cookies);
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
     //
     // VOD support.
     //
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_vod_info($media_url_str, &$plugin_cookies)
     {
@@ -173,7 +181,7 @@ class DefaultDunePlugin implements DunePlugin
         return $this->vod->get_vod_info($media_url, $plugin_cookies);
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_vod_stream_url($playback_url, &$plugin_cookies)
     {
@@ -183,11 +191,11 @@ class DefaultDunePlugin implements DunePlugin
         return $this->vod->get_vod_stream_url($playback_url, $plugin_cookies);
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
     //
     // Misc.
     //
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function handle_user_input(&$user_input, &$plugin_cookies)
     {
@@ -196,5 +204,5 @@ class DefaultDunePlugin implements DunePlugin
     }
 }
 
-///////////////////////////////////////////////////////////////////////////
+
 ?>

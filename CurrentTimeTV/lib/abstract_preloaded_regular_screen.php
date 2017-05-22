@@ -1,17 +1,17 @@
-<?php
-///////////////////////////////////////////////////////////////////////////
+﻿<?php
+
 
 require_once 'lib/abstract_regular_screen.php';
 
 abstract class AbstractPreloadedRegularScreen
     extends AbstractRegularScreen
 {
-    protected function __construct($id, $folder_views)
+	protected function __construct($id, $folder_views)
     {
         parent::__construct($id, $folder_views);
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public abstract function get_all_folder_items(
         MediaURL $media_url, &$plugin_cookies);
@@ -24,5 +24,5 @@ abstract class AbstractPreloadedRegularScreen
     }
 }
 
-///////////////////////////////////////////////////////////////////////////
+
 ?>

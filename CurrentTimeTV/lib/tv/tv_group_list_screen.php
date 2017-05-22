@@ -1,19 +1,19 @@
-<?php
-///////////////////////////////////////////////////////////////////////////
+﻿<?php
+
 
 require_once 'lib/abstract_preloaded_regular_screen.php';
 
-///////////////////////////////////////////////////////////////////////////
+
 
 class TvGroupListScreen extends AbstractPreloadedRegularScreen
 {
     const ID = 'tv_group_list';
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     protected $tv;
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function __construct($tv, $folder_views)
     {
@@ -22,7 +22,7 @@ class TvGroupListScreen extends AbstractPreloadedRegularScreen
         $this->tv = $tv;
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_action_map(MediaURL $media_url, &$plugin_cookies)
     {
@@ -33,7 +33,7 @@ class TvGroupListScreen extends AbstractPreloadedRegularScreen
         );
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_all_folder_items(MediaURL $media_url, &$plugin_cookies)
     {
@@ -72,5 +72,5 @@ class TvGroupListScreen extends AbstractPreloadedRegularScreen
     }
 }
 
-///////////////////////////////////////////////////////////////////////////
+
 ?>

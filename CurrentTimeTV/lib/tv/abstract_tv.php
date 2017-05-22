@@ -1,5 +1,5 @@
-<?php
-///////////////////////////////////////////////////////////////////////////
+﻿<?php
+
 
 require_once 'lib/tv/tv.php';
 require_once 'lib/tv/default_group.php';
@@ -8,10 +8,10 @@ require_once 'lib/tv/all_channels_group.php';
 
 abstract class AbstractTv implements Tv
 {
-    const MODE_CHANNELS_1_TO_N = false;
-    const MODE_CHANNELS_N_TO_M = true;
+    const MODE_CHANNELS_1_TO_N = true;
+    const MODE_CHANNELS_N_TO_M = false;
 
-    ///////////////////////////////////////////////////////////////////////
+
 
     private $mode;
     private $favorites_supported;
@@ -20,7 +20,7 @@ abstract class AbstractTv implements Tv
     protected $channels;
     protected $groups;
 
-    ///////////////////////////////////////////////////////////////////////
+
 
     protected function __construct($mode,
         $favorites_supported,
@@ -31,7 +31,7 @@ abstract class AbstractTv implements Tv
         $this->playback_url_is_stream_url = $playback_url_is_stream_url;
     }
 
-    ///////////////////////////////////////////////////////////////////////
+
 
     public function is_favorites_supported()
     {
@@ -43,7 +43,7 @@ abstract class AbstractTv implements Tv
         return '__all_channels';
     }
 
-    ///////////////////////////////////////////////////////////////////////
+
 
     public function unload_channels()
     {
@@ -59,12 +59,12 @@ abstract class AbstractTv implements Tv
             $this->load_channels($plugin_cookies);
     }
 
-    ///////////////////////////////////////////////////////////////////////
+
 
     public function get_channels()
     { return $this->channels; }
 
-    ///////////////////////////////////////////////////////////////////////
+
 
     public function get_channel($channel_id)
     {
@@ -76,12 +76,12 @@ abstract class AbstractTv implements Tv
         return $c;
     }
 
-    ///////////////////////////////////////////////////////////////////////
+
 
     public function get_groups()
     { return $this->groups; }
 
-    ///////////////////////////////////////////////////////////////////////
+
 
     public function get_group($group_id)
     {
@@ -93,26 +93,30 @@ abstract class AbstractTv implements Tv
         return $g;
     }
 
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-
     public function get_tv_info(MediaURL $media_url, &$plugin_cookies)
     {
+
+        //hd_print('  media_url:' . $media_url->get_raw_string());
+
         $this->ensure_channels_loaded($plugin_cookies);
 
         $channels = array();
 
-        foreach ($this->get_groups() as $g)
+        /*
+		foreach ($this->get_groups() as $g)
         {
             hd_print('DEBUG: group '.$g->get_id());
         }
+		*/
 
         foreach ($this->get_channels() as $c)
         {
             $group_id_arr = array();
 
+            /*
             if ($this->mode == self::MODE_CHANNELS_N_TO_M)
                 $group_id_arr[] = $this->get_all_channel_group_id();
+            */
 
             foreach ($c->get_groups() as $g)
                 $group_id_arr[] = $g->get_id();
@@ -189,7 +193,7 @@ abstract class AbstractTv implements Tv
         $archive_def = is_null($archive) ? null :
             $archive->get_archive_def();
 
-        return array
+        $toBeReturned = array
         (
             PluginTvInfo::show_group_channels_only => $this->mode,
 
@@ -206,15 +210,23 @@ abstract class AbstractTv implements Tv
             PluginTvInfo::favorite_channel_ids => $fav_channel_ids,
 
             PluginTvInfo::archive => $archive_def,
+
+            PluginTvInfo::actions => $this->get_movie_actions(),
+            PluginTvInfo::timer => array(GuiTimerDef::delay_ms => 5000),
         );
+
+		//hd_print( 'To be returned by tv->getTvInfo(): ' . print_r($toBeReturned, true) );
+
+		return $toBeReturned;
     }
 
-    ///////////////////////////////////////////////////////////////////////
 
     public function get_tv_stream_url($media_url, &$plugin_cookies)
-    { throw new Exception('Error: get_tv_stream_url() is not supported.'); }
-    
-    ///////////////////////////////////////////////////////////////////////
+    {
+        throw new Exception('Error: get_tv_stream_url() is not supported.');
+    }
+
+
 
     public function get_tv_playback_url($channel_id, $archive_ts, $protect_code, &$plugin_cookies)
     {
@@ -223,11 +235,11 @@ abstract class AbstractTv implements Tv
         return $this->get_channel($channel_id)->get_streaming_url();
     }
 
-    ///////////////////////////////////////////////////////////////////////
+
 
     protected abstract function get_day_epg_iterator($channel_id, $day_start_ts, &$plugin_cookies);
 
-    ///////////////////////////////////////////////////////////////////////
+
 
     public function get_day_epg($channel_id, $day_start_ts, &$plugin_cookies)
     {
@@ -248,8 +260,8 @@ abstract class AbstractTv implements Tv
         return $epg;
     }
 
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
+
+
 
     public function is_favorite_channel_id($channel_id, &$plugin_cookies)
     {
@@ -307,32 +319,26 @@ abstract class AbstractTv implements Tv
             array(TvFavoritesScreen::get_media_url_str()));
     }
 
-    ///////////////////////////////////////////////////////////////////////
+
 
     public function get_fav_channel_ids(&$plugin_cookies)
     {
-        $fav_channel_ids = array();
-
-        if (isset($plugin_cookies->{'favorite_channels'}))
-            $fav_channel_ids = preg_split('/,/', $plugin_cookies->{'favorite_channels'});
-
-        return $fav_channel_ids;
+        return HD::get_items('favorite_channels');
     }
 
-    ///////////////////////////////////////////////////////////////////////
 
     public function set_fav_channel_ids(&$plugin_cookies, &$ids)
     {
-        $plugin_cookies->{'favorite_channels'} = join(',', $ids);
+        $ids = array_values($ids);
+		HD::save_items('favorite_channels', $ids);
     }
 
-    ///////////////////////////////////////////////////////////////////////
     // Archive.
 
     public function get_archive(MediaURL $media_url)
     { return null; }
 
-    ///////////////////////////////////////////////////////////////////////
+
     // Hooks.
 
     public function folder_entered(MediaURL $media_url, &$plugin_cookies)
@@ -343,5 +349,5 @@ abstract class AbstractTv implements Tv
     { /* Nop */ }
 }
 
-///////////////////////////////////////////////////////////////////////////
+
 ?>

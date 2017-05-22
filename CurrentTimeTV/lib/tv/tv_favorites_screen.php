@@ -36,20 +36,20 @@ class TvFavoritesScreen extends AbstractPreloadedRegularScreen
         $move_backward_favorite_action =
             UserInputHandlerRegistry::create_action(
                 $this, 'move_backward_favorite');
-        $move_backward_favorite_action['caption'] = 'Backward';
+        $move_backward_favorite_action['caption'] = 'Вверх';
 
         $move_forward_favorite_action =
             UserInputHandlerRegistry::create_action(
                 $this, 'move_forward_favorite');
-        $move_forward_favorite_action['caption'] = 'Forward';
+        $move_forward_favorite_action['caption'] = 'Вниз';
 
         $remove_favorite_action =
             UserInputHandlerRegistry::create_action(
                 $this, 'remove_favorite');
-        $remove_favorite_action['caption'] = 'Favorite';
+        $remove_favorite_action['caption'] = 'Удалить';
 
         $menu_items[] = array(
-            GuiMenuItemDef::caption => 'Remove from Favorites',
+            GuiMenuItemDef::caption => 'Удалить из избранного',
             GuiMenuItemDef::action => $remove_favorite_action);
 
         $popup_menu_action = ActionFactory::show_popup_menu($menu_items);
@@ -73,7 +73,7 @@ class TvFavoritesScreen extends AbstractPreloadedRegularScreen
     {
         $parent_media_url = MediaURL::decode($user_input->parent_media_url);
 
-        $num_favorites = 
+        $num_favorites =
             count($this->tv->get_fav_channel_ids($plugin_cookies));
 
         $sel_ndx = $user_input->sel_ndx + $sel_increment;
@@ -91,10 +91,6 @@ class TvFavoritesScreen extends AbstractPreloadedRegularScreen
 
     public function handle_user_input(&$user_input, &$plugin_cookies)
     {
-        hd_print('Tv favorites: handle_user_input:');
-        foreach ($user_input as $key => $value)
-            hd_print("  $key => $value");
-
         if ($user_input->control_id == 'move_backward_favorite')
         {
             if (!isset($user_input->selected_media_url))
@@ -153,15 +149,12 @@ class TvFavoritesScreen extends AbstractPreloadedRegularScreen
             if (preg_match('/^\s*$/', $channel_id))
                 continue;
 
-            try
-            {
-                $c = $this->tv->get_channel($channel_id);
-            }
-            catch (Exception $e)
-            {
-                hd_print("Warning: channel '$channel_id' not found.");
+			if ($channel_id==false)
                 continue;
-            }
+
+            $c = $this->tv->get_channel($channel_id);
+			if ($c==false)
+				continue;
 
             array_push($items,
                 array

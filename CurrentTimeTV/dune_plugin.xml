@@ -6,31 +6,42 @@
   </auto_resume>
   <entry_points>
     <entry_point>
-        <parent_media_url>root://tv</parent_media_url>
-        <!--media_url>tv_channel_list</media_url-->
-        <media_url>tv_group_list</media_url>
-        <caption>Настоящее Время</caption>
-        <icon_url>plugin_file://logo/logo.png</icon_url>
-		<badge_icon_url>plugin_file://logo/default.png</badge_icon_url>
-        <actions>
-          <key_enter>
-            <type>plugin_open_folder</type>
-          </key_enter>
-          <key_play>
-            <type>plugin_tv_play</type>
-          </key_play>
-        </actions>
-        <ip_address_required>yes</ip_address_required>
-        <show_cookie_name>show_tv</show_cookie_name>
-        <show_by_default>yes</show_by_default>
+      <parent_media_url>root://tv</parent_media_url>
+      <media_url>curent_time_tv_channel_list</media_url>
+      <caption>Настоящее Время</caption>
+      <icon_url>plugin_file://logo/logo.png</icon_url>
+      <badge_icon_url>plugin_file://logo/badge.png</badge_icon_url>
+      <actions>
+        <key_enter>
+          <type>plugin_open_folder</type>
+        </key_enter>
+        <key_play>
+          <type>plugin_tv_play</type>
+        </key_play>
+      </actions>
+      <ip_address_required>yes</ip_address_required>
+      <show_cookie_name>show_application</show_cookie_name>
+      <show_by_default>yes</show_by_default>
+    </entry_point>
+	  <entry_point>
+      <parent_media_url>setup://applications</parent_media_url>
+      <media_url>setup</media_url>
+      <caption>Настоящее Время</caption>
+		  <icon_url>plugin_file://logo/logo.png</icon_url>
+		  <badge_icon_url>plugin_file://logo/badge.png</badge_icon_url>
+      <actions>
+        <key_enter>
+          <type>plugin_open_folder</type>
+        </key_enter>
+      </actions>
     </entry_point>
   </entry_points>
   <type>php</type>
   <params>
-     <program>current_time.php</program>
+    <program>curent_time_plugin.php</program>
   </params>
-  <version_index>3</version_index>
-  <version>0.0.1 (09.04.17)</version>
+  <version_index>4</version_index>
+  <version>0.1.0 (22.05.17)</version>
   <check_update>
     <schema>1</schema>
     <url>http://dune-club.info/plugins/update/CurrentTimeTV/update.txt</url>

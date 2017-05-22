@@ -1,5 +1,5 @@
-<?php
-///////////////////////////////////////////////////////////////////////////
+﻿<?php
+
 
 require_once 'lib/controls_screen.php';
 require_once 'lib/control_factory.php';
@@ -9,7 +9,7 @@ abstract class AbstractControlsScreen
 {
     private $id;
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     protected function __construct($id)
     {
@@ -19,7 +19,7 @@ abstract class AbstractControlsScreen
             register_handler($this);
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_handler_id()
     { return 'controls_' . $this->id; }
@@ -27,7 +27,7 @@ abstract class AbstractControlsScreen
     public function get_id()
     { return $this->id; }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     public function get_folder_view(MediaURL $media_url, &$plugin_cookies)
     {
@@ -48,7 +48,7 @@ abstract class AbstractControlsScreen
         );
     }
 
-    ///////////////////////////////////////////////////////////////////////
+    
 
     protected function add_vgap(&$defs, $vgap)
     {
@@ -103,5 +103,5 @@ abstract class AbstractControlsScreen
     }
 }
 
-///////////////////////////////////////////////////////////////////////////
+
 ?>
