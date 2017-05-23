@@ -126,8 +126,11 @@ class CurentTimeConfig
 
 
 	public static function background() {
-        return 'plugin_file://logo/backgraund.jpg';
+        $bg = (HD::get_item('bg') !='') ? HD::get_item('bg') : 'yes';
+        return ($bg == 'yes') ? 'plugin_file://logo/backgraund.jpg' : 'gui_skin://images/bg.jpg';
 	}
+
+
 
 	public static function get_data_path() {
 		static $link = null;

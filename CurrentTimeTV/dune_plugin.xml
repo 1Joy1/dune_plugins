@@ -40,8 +40,8 @@
   <params>
     <program>curent_time_plugin.php</program>
   </params>
-  <version_index>4</version_index>
-  <version>0.1.0 (22.05.17)</version>
+  <version_index>5</version_index>
+  <version>0.1.1 (23.05.17)</version>
   <check_update>
     <schema>1</schema>
     <url>http://dune-club.info/plugins/update/CurrentTimeTV/update.txt</url>

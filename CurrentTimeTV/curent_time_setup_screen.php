@@ -76,6 +76,16 @@ class CurentTimeSetupScreen extends AbstractControlsScreen
 
 
 
+        $background = (HD::get_item('bg') !='') ? HD::get_item('bg') : 'yes';
+        $background_ops = array('yes'  =>  '%tr%yes',
+                                'no'  =>  '%tr%no',
+                               );
+
+        $this->add_combobox($defs,
+            'bg', '%tr%bg',
+            $background, $background_ops, 0, true);
+
+
 		ControlFactory::add_smart_label($defs,
 			"Папка DATA:",
 			'<text color="10" size="normal">'.CurentTimeConfig::get_data_path().'</text>'
@@ -106,7 +116,7 @@ class CurentTimeSetupScreen extends AbstractControlsScreen
 
         if ($user_input->control_id === 'qual_arhiv'){
             HD::save_item('qual_arhiv', $user_input->qual_arhiv);
-            return ActionFactory::show_title_dialog(null, null, '%tr%q_arh_ch_mess', 900, 0);
+            return ActionFactory::show_title_dialog(null, null, '%tr%q_arh_ch_mess', 900, 1);
         }
 
         if ($user_input->control_id === 'qual_live'){
@@ -114,6 +124,11 @@ class CurentTimeSetupScreen extends AbstractControlsScreen
             //return  ActionFactory::show_title_dialog('%tr%save_bg_path',null,"Или POPUP - обновить на иконке плагина.",900,1);
             //$perform_new_action = ActionFactory::show_title_dialog('%tr%q_live_ch_mess');
             return ActionFactory::invalidate_folders(array('curent_time_tv_channel_list'));
+        }
+
+        if ($user_input->control_id === 'bg'){
+            HD::save_item('bg', $user_input->bg);
+            return  ActionFactory::show_title_dialog('%tr%save_bg_path',null,"Или POPUP - обновить на иконке плагина.",900,1);
         }
 
         if ($user_input->control_id === 'pagi'){

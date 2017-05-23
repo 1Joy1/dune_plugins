@@ -11,3 +11,4 @@ qual_arhiv = Quality arhiv.
 q_arh_ch_mess = If this quality is not found, the plug-in will pick up the maximum possible.
 q_live_ch_mess = Changed.
 pagi = Depth of video archive.
+bg = Branded background.

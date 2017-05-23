@@ -459,8 +459,9 @@ class HD
     	else
     		$link = CurentTimeConfig::get_data_path() . '/'. $path;
     			if (file_exists($link)){
-    			$doc = file_get_contents($link);
-    			$items = unserialize($doc);}
+    			     $doc = file_get_contents($link);
+    			     $items = unserialize($doc);
+                }
     	return $items;
 	}
 
@@ -504,11 +505,11 @@ class HD
 						@fclose($data);
 	}
 	public static function get_item($path) {
-	$item = '';
-	$link = CurentTimeConfig::get_data_path() . '/'. $path;
-			if (file_exists($link))
-			$item = file_get_contents($link);
-	return $item;
+        $item = '';
+        $link = CurentTimeConfig::get_data_path() . '/'. $path;
+        	if (file_exists($link))
+                $item = file_get_contents($link);
+        return $item;
 	}
 
 	public static function save_item_tmp($path, $item) {
