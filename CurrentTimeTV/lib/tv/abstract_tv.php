@@ -210,15 +210,13 @@ abstract class AbstractTv implements Tv
             PluginTvInfo::favorite_channel_ids => $fav_channel_ids,
 
             PluginTvInfo::archive => $archive_def,
-
-            PluginTvInfo::actions => $this->get_movie_actions(),
-            PluginTvInfo::timer => array(GuiTimerDef::delay_ms => 5000),
         );
 
 		//hd_print( 'To be returned by tv->getTvInfo(): ' . print_r($toBeReturned, true) );
 
 		return $toBeReturned;
     }
+
 
 
     public function get_tv_stream_url($media_url, &$plugin_cookies)

@@ -48,7 +48,7 @@ class CurentTimeConfig
 	public static function get_menu() {
 		return array(
             'tv_shows'    => array (
-                'caption' => 'Программы по рубликам',
+                'caption' => 'Программы по рубрикам',
                 'mUrl' => CurentTimeVodCategoryListScreen::get_media_url_str('tv_shows'),
                 'url' => ''
             ),

@@ -231,5 +231,24 @@ class CurentTimeM3uTv extends AbstractTv implements UserInputHandler
 
 
 
+    public function get_tv_info(MediaURL $media_url, &$plugin_cookies)
+    {
+        $toBeReturned = parent::get_tv_info($media_url, &$plugin_cookies);
+
+        if (defined('PluginTvInfo::actions')) {
+            $toBeReturned = array_merge($toBeReturned,
+                array
+                (
+                    PluginTvInfo::actions => $this->get_movie_actions(),
+                    PluginTvInfo::timer => array(GuiTimerDef::delay_ms => 5000),
+                ));
+        }
+
+        //hd_print( 'To be returned by tv->getTvInfo(): ' . print_r($toBeReturned, true) );
+        return $toBeReturned;
+    }
+
+
+
 }
 ?>
