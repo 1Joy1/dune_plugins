@@ -9,6 +9,7 @@ save_bg_path = Changes will take effect after a reboot!
 qual_live = Quality live.
 qual_arhiv = Quality arhiv.
 q_arh_ch_mess = If this quality is not found, the plug-in will pick up the maximum possible.
+q_arh_ch_mess_hls = Selected quality HLS.
 q_live_ch_mess = Changed.
 pagi = Depth of video archive.
 bg = Branded background.

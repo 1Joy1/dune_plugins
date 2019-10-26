@@ -53,6 +53,7 @@ class CurentTimeSetupScreen extends AbstractControlsScreen
         $qual_arhiv_ops = array('1080p'  =>  '1080p',
                                 '720p'  =>  '720p',
                                 '270p'  =>  '270p',
+                                'hls'  =>   'hls - (рекомендованно для прошивок ниже b11)',
                                );
 
         $this->add_combobox($defs,
@@ -61,14 +62,16 @@ class CurentTimeSetupScreen extends AbstractControlsScreen
         $this->add_label($defs,'','');
 
         $pagi = (HD::get_item('pagi') !='') ? HD::get_item('pagi') : CurentTimeConfig::PAGI;
-        $pagi_ops = array('10' => '10стр. или 131 ролик',       //10*12+11
-                          '50' => '50стр. или 611 роликов',
-                          '100' => '100стр. или 1211 роликов',
-                          '150' => '150стр. или 1811 роликов',
-                          '200' => '200стр. или 2411 роликов',
-                          '250' => '250стр. или 3011 роликов',
-                          '300' => '300стр. или 3611 роликов',    //300*12+11
-                          );
+        $pagi_ops = array(
+            '1' => '1стр. или 12 роликов',       //1*12
+            '5' => '5стр. или 60 роликов',
+            '10' => '10стр. или 120 роликов',
+            '20' => '20стр. или 240 роликов',
+            '30' => '30стр. или 360 роликов',
+            '40' => '40стр. или 480 роликов',
+            '50' => '50стр. или 600 роликов',    //50*12
+			'100' => '100стр. или 1200 роликов',
+        );
 
         $this->add_combobox($defs,
             'pagi', '%tr%pagi',
@@ -116,7 +119,11 @@ class CurentTimeSetupScreen extends AbstractControlsScreen
 
         if ($user_input->control_id === 'qual_arhiv'){
             HD::save_item('qual_arhiv', $user_input->qual_arhiv);
-            return ActionFactory::show_title_dialog(null, null, '%tr%q_arh_ch_mess', 900, 1);
+            if ($user_input->qual_arhiv != 'hls') {
+                return ActionFactory::show_title_dialog(null, null, '%tr%q_arh_ch_mess', 900, 1);
+            } else {
+                return ActionFactory::show_title_dialog(null, null, '%tr%q_arh_ch_mess_hls', 900, 1);
+			}
         }
 
         if ($user_input->control_id === 'qual_live'){

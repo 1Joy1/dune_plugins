@@ -14,8 +14,8 @@ class CurentTimeConfig
     const LIVE_CHANEL_ICO               = 'plugin_file://logo/1185.png';
 
     const QUAL_LIVE                     = 'all';
-    const QUAL_ARHIV                    = '1080';
-    const PAGI                          = '50';
+    const QUAL_ARHIV                    = 'hls';
+    const PAGI                          = '5';
 
 
 
@@ -87,50 +87,171 @@ class CurentTimeConfig
 
     public static function get_tv_shows() {
         return array(
-                    'olevski' =>    array('url_path' => '/z/20333',
+                    'olevski' =>    array('url_path' => '/Olevsky/episodes',
                                           'caption' => 'Час Тимура Олевского'
                                           ),
-                    'nveurope' =>   array('url_path' => '/z/18657',
-                                          'caption' => 'Ежедневная программа «Наcтоящее Время»'
+                    'nveurope' =>   array('url_path' => '/z/18657/episodes',
+                                          'caption' => 'Итоги дня'
                                           ),
-                    'nvasia' =>     array('url_path' => '/z/17642',
+                    'nvasia' =>     array('url_path' => '/Asia/episodes',
                                           'caption' => 'Азия'
                                           ),
-                    'nvamerica' =>  array('url_path' => '/z/20347',
+                    'nvamerica' =>  array('url_path' => '/Amerika/episodes',
                                           'caption' => 'Америка'
                                           ),
-                    'oba' =>        array('url_path' => '/z/20366',
+                    'oba' =>        array('url_path' => '/smotrivoba/episodes',
                                           'caption' => 'Смотри в Оба'
                                           ),
-                    'itogi' =>      array('url_path' => '/z/17499',
+                    'itogi' =>      array('url_path' => '/itogi/episodes',
                                           'caption' => 'Итоги'
                                           ),
                     'week' =>       array('url_path' => '/z/17498',
                                           'caption' => 'Неделя'
                                           ),
-                    'baltia' =>     array('url_path' => '/z/20350',
+                    'baltia' =>     array('url_path' => '/Baltic_show/episodes',
                                           'caption' => 'Балтия'
                                           ),
-                    'bisplan' =>    array('url_path' => '/z/20354',
+                    'bisplan' =>    array('url_path' => '/business/episodes',
                                           'caption' => 'Бизнес-План'
                                           ),
-                    'unknownrus' => array('url_path' => '/z/20331',
+                    'unknownrus' => array('url_path' => '/unknownrussia/episodes',
                                           'caption' => 'Неизвестная РОССИЯ'
                                           ),
                     'guests' =>     array('url_path' => '/z/20330',
                                           'caption' => '«Ждём в гости» с Зурабом Двали'
                                           ),
+                    'shemi' =>     array('url_path' => '/scheme/Episodes',
+                                          'caption' => '«Схемы»'
+                                          ),
+                    'vukraine' =>     array('url_path' => '/z/21041/episodes',
+                                          'caption' => '«#Вукраине»'
+                                          ),
                 );
     }
 
+    public static function parse_movie_page($movie_id, $plugin_cookies) {
+        $pagi = (HD::get_item('pagi') !='') ? HD::get_item('pagi') : CurentTimeConfig::PAGI;
 
+        if ($movie_id == 'broadcasts' || $movie_id == 'all_videos' || $movie_id == 'daily_shoots' ||
+            $movie_id == 'reportages' || $movie_id == 'interviews' || $movie_id == 'guests') {
+
+            $main_menu = self::get_menu();
+
+            $movie = new Movie($movie_id);
+            $movie->set_data($main_menu["$movie_id"]['caption'], "plugin_file://logo/$movie_id.png");
+
+            ini_set('pcre.backtrack_limit', '5000000');
+
+            for ($i=0; $i<$pagi; $i++) {
+                $doc = HD::http_get_document(self::SITE_URL . $main_menu["$movie_id"]['url'] . ($i ? '?p=' . $i : ''));
+
+                $patern = '/<ul class="row" id="items">(.+?)<\/ul>/ims';
+
+                if ($may_error = preg_match($patern, $doc, $result)) {
+
+                    $fragment_page = $result[0];
+                    $patern = '/<a href="(.*?)".*?title="(.*?)">.*?<img data-src="(.*?)".*?<span class="date" >(.*?)<\/span>.*?<\/li>/ims';
+                    if ($may_error = preg_match_all($patern, $fragment_page, $result)) {
+
+                        foreach ($result[1] as $key => $value) {
+
+                            $img = $result[3][$key];
+
+                            $str = html_entity_decode($result[2][$key], null, 'UTF-8');
+
+                            $str = html_entity_decode($str);
+
+                            $caption = $str . '    |' . $result[4][$key] . '|';
+                            $caption = preg_replace('/\"/', "'", $caption);
+                            $caption = preg_replace("/(?:'(.*?)')/", '«$1»', $caption);
+
+                            $url = $result[1][$key];
+
+                            $movie->add_series_data($url, $caption, $url, false);
+                        }
+                    } else {
+                        hd_print("Не найденны эллементы «li» Второй preg_match вернул: =>> $may_error");
+                    }
+                } else {
+                    hd_print('Не найдена часть страницы «ul class="row" id="items"». Первый preg_match вернул: =>>' . $may_error);
+                }
+            }
+        }
+
+
+        if (preg_match('/currenttime/', $movie_id)) {
+
+            $arr_movie_id = explode('|||', $movie_id);
+
+            $movie_url = $arr_movie_id[0];
+            $movie_group_key = $arr_movie_id[1];
+            $tv_shows = self::get_tv_shows();
+
+            $movie = new Movie($movie_id);
+            $movie->set_data($tv_shows[$movie_group_key]['caption'],
+                'plugin_file://logo/thumb/' . $movie_group_key . '_thumb.png');
+
+
+            ini_set('pcre.backtrack_limit', '5000000');
+
+            for ($i=0; $i<$pagi; $i++) {
+                $doc = HD::http_get_document($movie_url . ($i ? '?p=' . $i : ''));
+
+                $patern = '/<ul class="row" id="items">(.+?)<\/ul>/ims';
+
+                if ($may_error = preg_match($patern, $doc, $result)) {
+                    $fragment_page = $result[0];
+                    $patern = '/<a href="(.*?)".*?title="(.*?)">.*?<img data-src="(.*?)".*?<span class="date" >(.*?)<\/span>.*?<\/li>/ims';
+
+                    if ($may_error = preg_match_all($patern, $fragment_page, $result)) {
+
+                        foreach ($result[1] as $key => $value) {
+
+                            $img = $result[3][$key];
+
+                            if ($movie_group_key != 'nveurope') {
+                                $str = html_entity_decode($result[2][$key], null, 'UTF-8');
+                                $str = html_entity_decode($str);
+                            } else {
+                                $str = $tv_shows[$movie_group_key]['caption'];
+                            }
+
+
+                            $caption = $str . '    |' . $result[4][$key] . '|';
+                            $caption = preg_replace('/\"/', "'", $caption);
+                            $caption = preg_replace("/(?:'(.*?)')/", '«$1»', $caption);
+
+                            $url = $result[1][$key];
+
+                            $movie->add_series_data($url, $caption, $url, true);
+                        }
+                    } else {
+                        hd_print('Не найденны эллементы «li» Второй preg_match вернул: =>>' . $may_error);
+                    }
+                } else {
+                    hd_print('Не найдена часть страницы «ul class="row" id="items"». Первый preg_match вернул: =>>' . $may_error);
+                }
+            }
+        }
+
+        if ($movie_id=='favorites'){
+            $favorites = HD::get_items('favorites');
+            $movie = new Movie($movie_id);
+            $movie->set_data('Избранные передачи', "plugin_file://logo/$movie_id.png");
+            if (is_array($favorites)){
+                foreach ($favorites as $k => $v)
+                    if(is_array($v))
+                        $movie->add_series_data( $v['series_id'], $v['name'], $v['series_id'], true, $k);
+            }//else return false;
+        }
+
+        return $movie;
+    }
 
 	public static function background() {
         $bg = (HD::get_item('bg') !='') ? HD::get_item('bg') : 'yes';
         return ($bg == 'yes') ? 'plugin_file://logo/backgraund.jpg' : 'gui_skin://images/bg.jpg';
 	}
-
-
 
 	public static function get_data_path() {
 		static $link = null;
@@ -226,7 +347,8 @@ class CurentTimeConfig
             )
         );
     }
-	public static function GET_VOD_CATEGORY_LIST_FOLDER_VIEWS() {
+
+    public static function GET_VOD_CATEGORY_LIST_FOLDER_VIEWS() {
         return array(
             array
             (
