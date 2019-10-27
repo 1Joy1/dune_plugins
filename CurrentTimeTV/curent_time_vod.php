@@ -100,6 +100,12 @@ class CurentTimeVod extends AbstractVod
                 $url = $max_videostream['Src'];
                 hd_print('Качество (' . $desired_qual . ') не найдено. Найдено максимально возможное качство (' . $max_videostream["DataInfo"] . ')');
             }
+
+	    if ((preg_match('|\.mp4|i', $url)) && (!preg_match('|\.m3u8|i', $url))) {
+		$url = str_replace('http://', 'http://mp4://', $url);
+                $url = str_replace('https://', 'https://mp4://', $url);
+            }
+
         } else {
             $url = "http://127.0.0.1/cgi-bin/plugins/CurrentTimeTV/current.sh?" . $result[1];
         }
