@@ -44,7 +44,7 @@
   <version>0.1.4 (30.10.19)</version>
   <check_update>
     <schema>1</schema>
-    <url>http://dune-club.info/plugins/update/CurrentTimeTV/update.txt</url>
+    <url>http://lgtv.pp.ua/rep/CurrentTimeTV/update.txt</url>
     <timeout>0</timeout>
   </check_update>
 </dune_plugin>
