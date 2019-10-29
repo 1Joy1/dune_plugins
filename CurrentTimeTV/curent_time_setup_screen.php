@@ -53,7 +53,7 @@ class CurentTimeSetupScreen extends AbstractControlsScreen
         $qual_arhiv_ops = array('1080p'  =>  '1080p',
                                 '720p'  =>  '720p',
                                 '270p'  =>  '270p',
-                                'hls'  =>   'hls - (рекомендованно для прошивок ниже b11)',
+                                'hls'  =>   'hls - (рекомендованно для прошивок ниже b11 и 0136_b9)',
                                );
 
         $this->add_combobox($defs,

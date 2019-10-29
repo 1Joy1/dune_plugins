@@ -107,7 +107,10 @@ class CurentTimeVod extends AbstractVod
             }
 
         } else {
-            $url = "http://127.0.0.1/cgi-bin/plugins/CurrentTimeTV/current.sh?" . $result[1];
+	    hd_print('Replacement htpps:// => http:// for HLS streams.');
+	    $url = str_replace('https://', 'http://', $result[1]);
+            //Alternative variant to run HLS, through bash script.
+            //$url = "http://127.0.0.1/cgi-bin/plugins/CurrentTimeTV/current.sh?" . $result[1];
         }
 
         hd_print("Play ==>> $url");
