@@ -65,17 +65,17 @@ class CurentTimeConfig
             'daily_shoots' => array (
                 'caption' => 'Кадры дня',
                 'mUrl' => VodSeriesListScreen::get_media_url_str('daily_shoots'),
-                'url' => '/z/17226'
+                'url' => '/snapshot'
             ),
             'reportages' => array (
                 'caption' => 'Репортажи',
                 'mUrl' => VodSeriesListScreen::get_media_url_str('reportages'),
-                'url' => '/z/17318'
+                'url' => '/report/episodes'
             ),
             'interviews' => array (
                 'caption' => 'Интервью',
                 'mUrl' => VodSeriesListScreen::get_media_url_str('interviews'),
-                'url' => '/z/17319'
+                'url' => '/interview/episodes'
             ),
             'favorites' => array (
                 'caption' => 'Избранные передачи',
@@ -87,16 +87,16 @@ class CurentTimeConfig
 
     public static function get_tv_shows() {
         return array(
-                    'olevski' =>    array('url_path' => '/Olevsky/episodes',
-                                          'caption' => 'Час Тимура Олевского'
+                    'olevski' =>    array('url_path' => '/vecher/episodes',
+                                          'caption' => '«Вечер»  (ранее Час Тимура Олевского)'
                                           ),
-                    'nveurope' =>   array('url_path' => '/z/18657/episodes',
-                                          'caption' => 'Итоги дня'
+                    'nveurope' =>   array('url_path' => '/glavnoe/episodes',
+                                          'caption' => '«Главное» (ранее Итоги дня)'
                                           ),
-                    'nvasia' =>     array('url_path' => '/Asia/episodes',
+                    'nvasia' =>     array('url_path' => '/asia/episodes',
                                           'caption' => 'Азия'
                                           ),
-                    'nvamerica' =>  array('url_path' => '/Amerika/episodes',
+                    'nvamerica' =>  array('url_path' => '/amerika/episodes',
                                           'caption' => 'Америка'
                                           ),
                     'oba' =>        array('url_path' => '/smotrivoba/episodes',
@@ -105,25 +105,25 @@ class CurentTimeConfig
                     'itogi' =>      array('url_path' => '/itogi/episodes',
                                           'caption' => 'Итоги'
                                           ),
-                    'week' =>       array('url_path' => '/z/17498',
+                    'week' =>       array('url_path' => '/week/episodes',
                                           'caption' => 'Неделя'
                                           ),
-                    'baltia' =>     array('url_path' => '/Baltic_show/episodes',
+                    'baltia' =>     array('url_path' => '/baltia/episodes',
                                           'caption' => 'Балтия'
                                           ),
-                    'bisplan' =>    array('url_path' => '/business/episodes',
+                    'bisplan' =>    array('url_path' => '/business-plan/episodes',
                                           'caption' => 'Бизнес-План'
                                           ),
                     'unknownrus' => array('url_path' => '/unknownrussia/episodes',
                                           'caption' => 'Неизвестная РОССИЯ'
                                           ),
-                    'guests' =>     array('url_path' => '/z/20330',
-                                          'caption' => '«Ждём в гости» с Зурабом Двали'
+                    'guests' =>     array('url_path' => '/welcome/episodes',
+                                          'caption' => '«Ждём в гости» Тбилисоба'
                                           ),
-                    'shemi' =>     array('url_path' => '/scheme/Episodes',
+                    'shemi' =>     array('url_path' => '/scheme/episodes',
                                           'caption' => '«Схемы»'
                                           ),
-                    'vukraine' =>     array('url_path' => '/z/21041/episodes',
+                    'vukraine' =>     array('url_path' => '/in-ukraine/episodes',
                                           'caption' => '«#Вукраине»'
                                           ),
                 );
