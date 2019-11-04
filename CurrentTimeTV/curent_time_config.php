@@ -126,6 +126,57 @@ class CurentTimeConfig
                     'vukraine' =>     array('url_path' => '/in-ukraine/episodes',
                                           'caption' => '«#Вукраине»'
                                           ),
+                    'person' =>     array('url_path' => '/person/episodes',
+                                          'caption' => 'Человек на карте'
+                                          ),
+                    'asia360' =>     array('url_path' => '/asia-360/episodes',
+                                          'caption' => 'Азия 360°'
+                                          ),
+                    'shamanska' =>     array('url_path' => '/shamanska/episodes',
+                                          'caption' => 'Шаманская объясняет'
+                                          ),
+                    'bahdan' =>     array('url_path' => '/blog-bahdan/episodes',
+                                          'caption' => 'Блог Богдана Орлова'
+                                          ),
+                    'doc' =>     array('url_path' => '/doc/episodes',
+                                          'caption' => 'Реальное Кино'
+                                          ),
+                    'newyork' =>     array('url_path' => '/new-york/episodes',
+                                          'caption' => 'Нью-Йорк, New York'
+                                          ),
+                    'amerikatravell' =>     array('url_path' => '/z/21370/episodes',
+                                          'caption' => 'Америка. Большое путешествие'
+                                          ),
+                    'technology' =>     array('url_path' => '/technology/episodes',
+                                          'caption' => 'Детали'
+                                          ),
+                    'realtalk' =>     array('url_path' => '/real-talk/episodes',
+                                          'caption' => 'Реальный разговор'
+                                          ),
+                    'series' =>     array('url_path' => '/series/episodes',
+                                          'caption' => 'Настоящий сериал'
+                                          ),
+                    'priznaki' =>     array('url_path' => '/priznaki/episodes',
+                                          'caption' => 'Признаки жизни'
+                                          ),
+                    'notourbehalf' => array('url_path' => '/z/21319',
+                                          'caption' => 'Не от нашего имени'
+                                          ),
+                    'moldova' =>     array('url_path' => '/moldova/episodes',
+                                          'caption' => 'Молдова «Пятое время года»'
+                                          ),
+                    'crossroad' =>     array('url_path' => '/crossroad',
+                                          'caption' => 'Перекресток'
+                                          ),
+                    'zoom' =>     array('url_path' => '/zoom/episodes',
+                                          'caption' => 'ZOOM'
+                                          ),
+                    'openlesson' =>     array('url_path' => '/open-lesson/episodes',
+                                          'caption' => 'Открытый урок'
+                                          ),
+                    'keepthere' =>     array('url_path' => '/z/20910',
+                                          'caption' => 'Держитесь там'
+                                          ),
                 );
     }
 

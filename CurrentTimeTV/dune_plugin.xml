@@ -40,8 +40,8 @@
   <params>
     <program>curent_time_plugin.php</program>
   </params>
-  <version_index>7</version_index>
-  <version>0.1.4 (30.10.19)</version>
+  <version_index>8</version_index>
+  <version>0.1.5 (04.11.19)</version>
   <check_update>
     <schema>1</schema>
     <url>http://lgtv.pp.ua/rep/CurrentTimeTV/update.txt</url>
